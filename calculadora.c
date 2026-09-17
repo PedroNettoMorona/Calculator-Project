@@ -36,6 +36,60 @@
 #define VERDE_MUSGO "\x1b[38;5;65m"
 #define DOURADO "\x1b[38;5;178m"
 
+bool _continue = true;
+
+
+void menucalculadora()
+{
+    
+    system("cls");
+
+    char *calculator_image[6] = {
+        " ██████╗ █████╗ ██╗      ██████╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗ ",
+        "██╔════╝██╔══██╗██║     ██╔════╝██║   ██║██║     ██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗",
+        "██║     ███████║██║     ██║     ██║   ██║██║     ███████║   ██║   ██║   ██║██████╔╝",
+        "██║     ██╔══██║██║     ██║     ██║   ██║██║     ██╔══██║   ██║   ██║   ██║██╔══██╗",
+        "╚██████╗██║  ██║███████╗╚██████╗╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║",
+        " ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝"};
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("%s\n", calculator_image[i]);
+    }
+
+    printf("1-Soma\n");
+    printf("2-Subtração\n");
+    printf("3-Multiplicação\n");
+    printf("4-Divisão\n");
+    printf("5-Exponenciação\n");
+    printf("6-Raiz Quadrada\n");
+    printf("7-Soma de n Valores\n");
+    printf("8-Cálculo da Sequencia de Fibonacci\n");
+    printf("9- Área do circulo\n");
+    printf("10- Área do retângulo\n");
+    printf("11- Volume do Cubo\n");
+    printf("12- Volume do Cilindro\n");
+    printf("0-Sair\n");
+    printf(VERMELHO "Escolha uma opção:\n" RESET);
+}
+
+void back_menu()
+{
+    char* back_menu_image[6] = {
+        "███╗   ███╗███████╗███╗   ██╗██╗   ██╗        ██╗ ██╗██╗ ",
+        "████╗ ████║██╔════╝████╗  ██║██║   ██║██╗    ██╔╝███║╚██╗",
+        "██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║╚═╝    ██║ ╚██║ ██║",
+        "██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║██╗    ██║  ██║ ██║",
+        "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝╚═╝    ╚██╗ ██║██╔╝",
+        "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝         ╚═╝ ╚═╝╚═╝ "                                                       
+    };
+
+    for(int i=0; i<6; i++)
+    {
+        printf("\n%s", back_menu_image[i]);
+    }
+}
+
 void invalid_option()
 {
     system("cls");
@@ -193,10 +247,35 @@ void Multiplicacao()
     printf("A multiplicacao e: %.2f\n", multiplicacao);
 }
 
-void limparTela()
+void choose_option()
 {
+    int operacao;
+    scanf("%d", &operacao);
+    switch (operacao)
+    {
+    case 0:
+        break;
+    case 1:
+        Soma();
+        break;
+    case 2:
+        Subtracao();
+        break;
+    case 3:
+        Multiplicacao();
+        break;
+    default:
+        invalid_option();
+    }
+    back_menu();
+    char choose = getch();
+    if(choose != '1')
+    {
+        _continue = false;
+    };
     system("cls");
 }
+
 void gotoxy(int x, int y)
 {
     COORD coord;
@@ -204,70 +283,21 @@ void gotoxy(int x, int y)
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-void menucalculadora()
-{
-    char *calculator_image[6] = {
-        " ██████╗ █████╗ ██╗      ██████╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗ ",
-        "██╔════╝██╔══██╗██║     ██╔════╝██║   ██║██║     ██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗",
-        "██║     ███████║██║     ██║     ██║   ██║██║     ███████║   ██║   ██║   ██║██████╔╝",
-        "██║     ██╔══██║██║     ██║     ██║   ██║██║     ██╔══██║   ██║   ██║   ██║██╔══██╗",
-        "╚██████╗██║  ██║███████╗╚██████╗╚██████╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║  ██║",
-        " ╚═════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝"};
-
-    for (int i = 0; i < 6; i++)
-    {
-        printf("%s\n", calculator_image[i]);
-    }
-}
 int main()
 {
     setlocale(LC_ALL, "utf-8");
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
-    int continuar = 0;
-    do
+
+
+    while(_continue == true)
     {
-        system("cls");
         menucalculadora();
-        printf("1-Soma\n");
-        printf("2-Subtração\n");
-        printf("3-Multiplicação\n");
-        printf("4-Divisão\n");
-        printf("5-Exponenciação\n");
-        printf("6-Raiz Quadrada\n");
-        printf("7-Soma de n Valores\n");
-        printf("8-Cálculo da Sequencia de Fibonacci\n");
-        printf("9- Área do circulo\n");
-        printf("10- Área do retângulo\n");
-        printf("11- Volume do Cubo\n");
-        printf("12- Volume do Cilindro\n");
-        printf("0-Sair\n");
-        printf(VERMELHO "Escolha uma opção:\n" RESET);
-        int operacao;
-        scanf("%d", &operacao);
-        switch (operacao)
-        {
-        case 0:
-            return 1;
-        case 1:
-            Soma();
-            break;
-        case 2:
-            Subtracao();
-            break;
-        case 3:
-            Multiplicacao();
-            break;
-        default:
-            invalid_option();
-        }
-        printf("para voltar ao menu precione 1:");
-        scanf("%d", &continuar);
-        system("cls");
-    } while (continuar == 1);
+        choose_option();
+    }
 
     printf("\nPressione qualquer tecla para sair...");
     getch();
 
     return 0;
-}
+};
