@@ -8,6 +8,8 @@
 #include <conio.h>
 #include <locale.h>
 
+#define CLS system("cls")
+
 // CORES ANSI
 #define PRETO "\x1b[30m"
 #define VERMELHO "\x1b[31m"
@@ -38,11 +40,10 @@
 
 bool _continue = true;
 
-
 void menucalculadora()
 {
-    
-    system("cls");
+
+    CLS;
 
     char *calculator_image[6] = {
         " ██████╗ █████╗ ██╗      ██████╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗ ",
@@ -75,16 +76,20 @@ void menucalculadora()
 
 void back_menu()
 {
-    char* back_menu_image[6] = {
+    char *back_menu_image[6] = {
         "███╗   ███╗███████╗███╗   ██╗██╗   ██╗        ██╗ ██╗██╗ ",
         "████╗ ████║██╔════╝████╗  ██║██║   ██║██╗    ██╔╝███║╚██╗",
         "██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║╚═╝    ██║ ╚██║ ██║",
         "██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║██╗    ██║  ██║ ██║",
         "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝╚═╝    ╚██╗ ██║██╔╝",
-        "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝         ╚═╝ ╚═╝╚═╝ "                                                       
-    };
+        "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝         ╚═╝ ╚═╝╚═╝ "};
 
-    for(int i=0; i<6; i++)
+    for (int i = 0; i < 3; i++)
+    {
+        printf("\n");
+    }
+
+    for (int i = 0; i < 6; i++)
     {
         printf("\n%s", back_menu_image[i]);
     }
@@ -92,7 +97,7 @@ void back_menu()
 
 void invalid_option()
 {
-    system("cls");
+    CLS;
 
     char *invalid_option_image[24] = {
         VERMELHO "         ███             ███             ███             ███             ███             ███             ███       ",
@@ -117,8 +122,7 @@ void invalid_option()
         "           ███░            ███░            ███░            ███░            ███░            ███░            ███░    ",
         "         ███░            ███░            ███░            ███░            ███░            ███░            ███░      ",
         "       ███░            ███░            ███░            ███░            ███░            ███░            ███░        ",
-        "     ███░            ███░            ███░            ███░            ███░            ███░            ███░          " RESET
-    };
+        "     ███░            ███░            ███░            ███░            ███░            ███░            ███░          " RESET};
 
     for (int i = 0; i < 24; i++)
     {
@@ -128,7 +132,7 @@ void invalid_option()
 
 void Soma()
 {
-    system("cls");
+    CLS;
 
     char *sum_image[6] = {
         "███████╗ ██████╗ ███╗   ███╗ █████╗ ",
@@ -151,7 +155,7 @@ void Soma()
 
     if (quantidade <= 0)
     {
-        printf("Quantidade invalida.\n");
+        printf("Quantidade inválida.\n");
         return;
     }
 
@@ -162,12 +166,12 @@ void Soma()
         soma = soma + numero;
     }
 
-    printf("A soma e: %.2f\n", soma);
+    printf("A soma é: %.2f\n", soma);
 }
 
 void Subtracao()
 {
-    system("cls");
+    CLS;
 
     char *subtraction_image[6] = {
         "███████╗██╗   ██╗██████╗ ████████╗██████╗  █████╗  ██████╗ █████╗  ██████╗ ",
@@ -190,7 +194,7 @@ void Subtracao()
 
     if (quantidade <= 0)
     {
-        printf("Quantidade invalida.\n");
+        printf("Quantidade inválida.\n");
         return;
     }
 
@@ -205,12 +209,12 @@ void Subtracao()
             subtracao = subtracao - numero;
     }
 
-    printf("A subtracao e: %.2f\n", subtracao);
+    printf("A subtração é: %.2f\n", subtracao);
 }
 
 void Multiplicacao()
 {
-    system("cls");
+    CLS;
 
     char *multiplication_image[6] = {
         "███╗   ███╗██╗   ██╗██╗  ████████╗██╗██████╗ ██╗     ██╗ ██████╗ █████╗  ██████╗ █████╗  ██████╗ ",
@@ -233,7 +237,7 @@ void Multiplicacao()
 
     if (quantidade <= 0)
     {
-        printf("Quantidade invalida.\n");
+        printf("Quantidade inválida.\n");
         return;
     }
 
@@ -244,7 +248,88 @@ void Multiplicacao()
         multiplicacao = multiplicacao * numero;
     }
 
-    printf("A multiplicacao e: %.2f\n", multiplicacao);
+    printf("A multiplicação é: %.2f\n", multiplicacao);
+}
+
+void Divisao()
+{
+    CLS;
+
+    char *division_image[6] = {
+        "██████╗ ██╗██╗   ██╗██╗███████╗ █████╗  ██████╗ ",
+        "██╔══██╗██║██║   ██║██║██╔════╝██╔══██╗██╔═══██╗",
+        "██║  ██║██║██║   ██║██║███████╗███████║██║   ██║",
+        "██║  ██║██║╚██╗ ██╔╝██║╚════██║██╔══██║██║   ██║",
+        "██████╔╝██║ ╚████╔╝ ██║███████║██║  ██║╚██████╔╝",
+        "╚═════╝ ╚═╝  ╚═══╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ "};
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("%s\n", division_image[i]);
+    }
+
+    int quantidade = 0;
+
+    printf("Quantos valores deseja dividir: ");
+    scanf("%d", &quantidade);
+
+    float divisao, numero[quantidade];
+
+    if (quantidade <= 0)
+    {
+        printf("Quantidade inválida.\n");
+        return;
+    }
+
+    for (int i = 0; i < quantidade; i++)
+    {
+        printf("Informe o valor %d: ", i + 1);
+        scanf("%f", &numero[i]);
+    }
+
+    divisao = numero[0];
+    for (int i = 1; i < quantidade; i++)
+    {
+        divisao = divisao / numero[i];
+    }
+
+    printf("A divisão é: %.2f\n", divisao);
+}
+
+void Exponenciacao()
+{
+    CLS;
+
+    char *exponentiation_image[6] = {
+        "███████╗██╗  ██╗██████╗  ██████╗ ███╗   ██╗███████╗███╗   ██╗ ██████╗██╗ █████╗  ██████╗ █████╗  ██████╗ ",
+        "██╔════╝╚██╗██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝████╗  ██║██╔════╝██║██╔══██╗██╔════╝██╔══██╗██╔═══██╗",
+        "█████╗   ╚███╔╝ ██████╔╝██║   ██║██╔██╗ ██║█████╗  ██╔██╗ ██║██║     ██║███████║██║     ███████║██║   ██║",
+        "██╔══╝   ██╔██╗ ██╔═══╝ ██║   ██║██║╚██╗██║██╔══╝  ██║╚██╗██║██║     ██║██╔══██║██║     ██╔══██║██║   ██║",
+        "███████╗██╔╝ ██╗██║     ╚██████╔╝██║ ╚████║███████╗██║ ╚████║╚██████╗██║██║  ██║╚██████╗██║  ██║╚██████╔╝",
+        "╚══════╝╚═╝  ╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═══╝ ╚═════╝╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝ "};
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("%s\n", exponentiation_image[i]);
+    }
+
+    int expoente;
+    float base;
+    float resultado;
+
+    printf("Informe a base da exponenciação: ");
+    scanf("%f", &base);
+
+    printf("Informe o expoente: ");
+    scanf("%d", &expoente);
+
+    resultado = base;
+    for (int i = 1; i < expoente; i++)
+    {
+        resultado = resultado * base;
+    }
+
+    printf("O resultado é: %.2f", resultado);
 }
 
 void choose_option()
@@ -254,6 +339,7 @@ void choose_option()
     switch (operacao)
     {
     case 0:
+        _continue = false;
         break;
     case 1:
         Soma();
@@ -264,16 +350,26 @@ void choose_option()
     case 3:
         Multiplicacao();
         break;
+    case 4:
+        Divisao();
+        break;
+    case 5:
+        Exponenciacao();
+        break;
     default:
         invalid_option();
     }
-    back_menu();
-    char choose = getch();
-    if(choose != '1')
+    if (_continue == true)
     {
-        _continue = false;
-    };
-    system("cls");
+        back_menu();
+            char choose = getch();
+        if (choose != '1')
+        {
+            _continue = false;
+        };
+    }
+
+    CLS;
 }
 
 void gotoxy(int x, int y)
@@ -289,8 +385,7 @@ int main()
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
 
-
-    while(_continue == true)
+    while (_continue == true)
     {
         menucalculadora();
         choose_option();
