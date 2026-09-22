@@ -331,7 +331,31 @@ void Exponenciacao()
 
     printf("O resultado é: %.2f", resultado);
 }
+void Radiciacao()
+{
+    CLS;
 
+    char *square_root_image[6] = {
+        "██████╗  █████╗ ██╗███████╗     ██████╗ ██╗   ██╗ █████╗ ██████╗ ██████╗  █████╗ ██████╗  █████╗ ",
+        "██╔══██╗██╔══██╗██║╚══███╔╝    ██╔═══██╗██║   ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗",
+        "██████╔╝███████║██║  ███╔╝     ██║   ██║██║   ██║███████║██║  ██║██████╔╝███████║██║  ██║███████║",
+        "██╔══██╗██╔══██║██║ ███╔╝      ██║▄▄ ██║██║   ██║██╔══██║██║  ██║██╔══██╗██╔══██║██║  ██║██╔══██║",
+        "██║  ██║██║  ██║██║███████╗    ╚██████╔╝╚██████╔╝██║  ██║██████╔╝██║  ██║██║  ██║██████╔╝██║  ██║",
+        "╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝     ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝"};                                                                                              
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("%s\n", square_root_image[i]);
+    }
+
+    float radicando;
+    float resultado;
+
+    printf("Informe o radicando: ");
+    scanf("%f", &radicando);
+    resultado=sqrt(radicando);
+    printf("O resultado é: %.2f", resultado);
+}
 void choose_option()
 {
     int operacao;
@@ -355,6 +379,12 @@ void choose_option()
         break;
     case 5:
         Exponenciacao();
+        break;
+    case 6:
+        Radiciacao();
+        break;
+    case 7:
+        Soma();
         break;
     default:
         invalid_option();
