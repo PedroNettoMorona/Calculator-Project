@@ -40,6 +40,11 @@
 
 bool _continue = true;
 
+//void write_history(char* archive, char* text)
+//{
+//    FILE *arq = fopen("%s")
+//}
+
 void menucalculadora()
 {
 
