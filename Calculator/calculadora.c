@@ -40,10 +40,21 @@
 
 bool _continue = true;
 
-//void write_history(char* archive, char* text)
-//{
-//    FILE *arq = fopen("%s")
-//}
+void write_history(char *address, char *text)
+{
+    FILE *archive = fopen(address, "a");
+
+    if (archive == NULL)
+    {
+        printf(VERMELHO "Erro ao abrir o arquivo." RESET);
+        return;
+    }
+
+    fputs(text, archive);
+    fputs("\n", archive);
+
+    fclose(archive);
+}
 
 void menucalculadora()
 {
@@ -155,6 +166,10 @@ void Soma()
     int quantidade = 0;
     float soma = 0, numero = 0;
 
+    char calculo_str[1024] = "";
+    char *igualdade_str = " = ";
+    char temporary[50];
+
     printf("Quantos valores deseja somar: ");
     scanf("%d", &quantidade);
 
@@ -169,9 +184,25 @@ void Soma()
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &numero);
         soma = soma + numero;
+
+        if (i == quantidade - 1)
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f", numero);
+        }
+        else
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f + ", numero);
+        }
+        strcat(calculo_str, temporary);
     }
+    snprintf(temporary, sizeof(temporary), "%.2f", soma);
+
+    strcat(calculo_str, igualdade_str);
+    strcat(calculo_str, temporary);
 
     printf("A soma é: %.2f\n", soma);
+
+    write_history("../History/historico_soma.txt", calculo_str);
 }
 
 void Subtracao()
@@ -346,7 +377,7 @@ void Radiciacao()
         "██████╔╝███████║██║  ███╔╝     ██║   ██║██║   ██║███████║██║  ██║██████╔╝███████║██║  ██║███████║",
         "██╔══██╗██╔══██║██║ ███╔╝      ██║▄▄ ██║██║   ██║██╔══██║██║  ██║██╔══██╗██╔══██║██║  ██║██╔══██║",
         "██║  ██║██║  ██║██║███████╗    ╚██████╔╝╚██████╔╝██║  ██║██████╔╝██║  ██║██║  ██║██████╔╝██║  ██║",
-        "╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝     ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝"};                                                                                              
+        "╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚══════╝     ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝"};
 
     for (int i = 0; i < 6; i++)
     {
@@ -358,7 +389,7 @@ void Radiciacao()
 
     printf("Informe o radicando: ");
     scanf("%f", &radicando);
-    resultado=sqrt(radicando);
+    resultado = sqrt(radicando);
     printf("O resultado é: %.2f", resultado);
 }
 void choose_option()
@@ -397,7 +428,7 @@ void choose_option()
     if (_continue == true)
     {
         back_menu();
-            char choose = getch();
+        char choose = getch();
         if (choose != '1')
         {
             _continue = false;
