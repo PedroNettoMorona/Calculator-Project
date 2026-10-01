@@ -56,6 +56,28 @@ void write_history(char *address, char *text)
     fclose(archive);
 }
 
+void show_history(char *address)
+{
+    FILE *archive = fopen(address, "r");
+
+    if (archive == NULL)
+    {
+        printf(VERMELHO "Erro ao abrir o arquivo." RESET);
+        return;
+    }
+
+    char line[1024];
+
+    while (fgets(line, sizeof(line), archive) != NULL)
+    {
+        printf("%s", line);
+    }
+
+    getche();
+
+    fclose(archive);
+}
+
 void menucalculadora()
 {
 
@@ -109,6 +131,29 @@ void back_menu()
     {
         printf("\n%s", back_menu_image[i]);
     }
+}
+
+void history_choose()
+{
+    char *show_history_image[6] = {
+        "███╗   ███╗ ██████╗ ███████╗████████╗██████╗  █████╗ ██████╗     ██╗  ██╗██╗███████╗████████╗ ██████╗ ██████╗ ██╗ ██████╗ ██████╗     ██╗██████╗ ██╗ ",
+        "████╗ ████║██╔═══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗    ██║  ██║██║██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗██║██╔════╝██╔═══██╗   ██╔╝╚════██╗╚██╗",
+        "██╔████╔██║██║   ██║███████╗   ██║   ██████╔╝███████║██████╔╝    ███████║██║███████╗   ██║   ██║   ██║██████╔╝██║██║     ██║   ██║   ██║  █████╔╝ ██║",
+        "██║╚██╔╝██║██║   ██║╚════██║   ██║   ██╔══██╗██╔══██║██╔══██╗    ██╔══██║██║╚════██║   ██║   ██║   ██║██╔══██╗██║██║     ██║   ██║   ██║ ██╔═══╝  ██║",
+        "██║ ╚═╝ ██║╚██████╔╝███████║   ██║   ██║  ██║██║  ██║██║  ██║    ██║  ██║██║███████║   ██║   ╚██████╔╝██║  ██║██║╚██████╗╚██████╔╝   ╚██╗███████╗██╔╝",
+        "╚═╝     ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═════╝     ╚═╝╚══════╝╚═╝ "};
+
+    for (int i = 0; i < 3; i++)
+    {
+        printf("\n");
+    }
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("\n%s", show_history_image[i]);
+    }
+    
+    printf("\n");
 }
 
 void invalid_option()
@@ -185,6 +230,7 @@ void Soma()
         scanf("%f", &numero);
         soma = soma + numero;
 
+        // Armazenamento de histórico
         if (i == quantidade - 1)
         {
             snprintf(temporary, sizeof(temporary), "%.2f", numero);
@@ -195,12 +241,12 @@ void Soma()
         }
         strcat(calculo_str, temporary);
     }
+    printf("A soma é: %.2f\n", soma);
+
     snprintf(temporary, sizeof(temporary), "%.2f", soma);
 
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
-
-    printf("A soma é: %.2f\n", soma);
 
     write_history("../History/historico_soma.txt", calculo_str);
 }
@@ -425,14 +471,20 @@ void choose_option()
     default:
         invalid_option();
     }
+
     if (_continue == true)
     {
         back_menu();
+        history_choose();
         char choose = getch();
-        if (choose != '1')
+        if (choose != '1' && choose != '2')
         {
             _continue = false;
         };
+        if (choose == '2')
+        {
+            show_history("../History/historico_soma.txt");
+        }
     }
 
     CLS;
