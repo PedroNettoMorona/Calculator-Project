@@ -40,6 +40,16 @@
 
 bool _continue = true;
 
+void gotoxy(int x, int y)
+{
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+    // Archive manager functions
+
 void write_history(char *address, char *text)
 {
     FILE *archive = fopen(address, "a");
@@ -73,10 +83,12 @@ void show_history(char *address)
         printf("%s", line);
     }
 
-    getche();
+    getch();
 
     fclose(archive);
 }
+
+    // Menu images
 
 void menucalculadora()
 {
@@ -152,7 +164,7 @@ void history_choose()
     {
         printf("\n%s", show_history_image[i]);
     }
-    
+
     printf("\n");
 }
 
@@ -190,6 +202,8 @@ void invalid_option()
         printf("%s\n", invalid_option_image[i]);
     }
 }
+
+    // Operation functions
 
 void Soma()
 {
@@ -249,6 +263,14 @@ void Soma()
     strcat(calculo_str, temporary);
 
     write_history("../History/historico_soma.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_soma.txt");
+    }
 }
 
 void Subtracao()
@@ -271,6 +293,10 @@ void Subtracao()
     int quantidade = 0;
     float subtracao = 0, numero = 0;
 
+    char calculo_str[1024] = "";
+    char *igualdade_str = " = ";
+    char temporary[50];
+
     printf("Quantos valores deseja subtrair: ");
     scanf("%d", &quantidade);
 
@@ -289,9 +315,34 @@ void Subtracao()
             subtracao = numero;
         else
             subtracao = subtracao - numero;
+
+        if (i == quantidade - 1)
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f", numero);
+        }
+        else
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f - ", numero);
+        }
+        strcat(calculo_str, temporary);
     }
 
     printf("A subtração é: %.2f\n", subtracao);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", subtracao);
+
+    strcat(calculo_str, igualdade_str);
+    strcat(calculo_str, temporary);
+
+    write_history("../History/historico_subtracao.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_subtracao.txt");
+    }
 }
 
 void Multiplicacao()
@@ -314,6 +365,10 @@ void Multiplicacao()
     int quantidade = 0;
     float multiplicacao = 1, numero = 0;
 
+    char calculo_str[1024] = "";
+    char *igualdade_str = " = ";
+    char temporary[50];
+
     printf("Quantos valores deseja multiplicar: ");
     scanf("%d", &quantidade);
 
@@ -328,9 +383,34 @@ void Multiplicacao()
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &numero);
         multiplicacao = multiplicacao * numero;
+
+        if (i == quantidade - 1)
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f", numero);
+        }
+        else
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f * ", numero);
+        }
+        strcat(calculo_str, temporary);
     }
 
     printf("A multiplicação é: %.2f\n", multiplicacao);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", multiplicacao);
+
+    strcat(calculo_str, igualdade_str);
+    strcat(calculo_str, temporary);
+
+    write_history("../History/historico_multiplicacao.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_multiplicacao.txt");
+    }
 }
 
 void Divisao()
@@ -357,6 +437,10 @@ void Divisao()
 
     float divisao, numero[quantidade];
 
+    char calculo_str[1024] = "";
+    char *igualdade_str = " = ";
+    char temporary[50];
+
     if (quantidade <= 0)
     {
         printf("Quantidade inválida.\n");
@@ -367,6 +451,16 @@ void Divisao()
     {
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &numero[i]);
+
+        if (i == quantidade - 1)
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f", numero[i]);
+        }
+        else
+        {
+            snprintf(temporary, sizeof(temporary), "%.2f / ", numero[i]);
+        }
+        strcat(calculo_str, temporary);
     }
 
     divisao = numero[0];
@@ -376,6 +470,21 @@ void Divisao()
     }
 
     printf("A divisão é: %.2f\n", divisao);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", divisao);
+
+    strcat(calculo_str, igualdade_str);
+    strcat(calculo_str, temporary);
+
+    write_history("../History/historico_divisao.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_divisao.txt");
+    }
 }
 
 void Exponenciacao()
@@ -399,6 +508,10 @@ void Exponenciacao()
     float base;
     float resultado;
 
+    char calculo_str[1024] = "";
+    char *igualdade_str = " = ";
+    char temporary[50];
+
     printf("Informe a base da exponenciação: ");
     scanf("%f", &base);
 
@@ -411,7 +524,26 @@ void Exponenciacao()
         resultado = resultado * base;
     }
 
+    snprintf(temporary, sizeof(temporary), "%.2f ^ %d", base, expoente);
+
+    strcat(calculo_str, temporary);
+
     printf("O resultado é: %.2f", resultado);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", resultado);
+
+    strcat(calculo_str, igualdade_str);
+    strcat(calculo_str, temporary);
+
+    write_history("../History/historico_exponenciacao.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_exponenciacao.txt");
+    }
 }
 void Radiciacao()
 {
@@ -433,11 +565,38 @@ void Radiciacao()
     float radicando;
     float resultado;
 
+    char calculo_str[1024] = "";
+    char *igualdade_str = " = ";
+    char temporary[50];
+
     printf("Informe o radicando: ");
     scanf("%f", &radicando);
+
     resultado = sqrt(radicando);
+
+    snprintf(temporary, sizeof(temporary), "sqrt(%.2f)", radicando);
+    strcat(calculo_str, temporary);
+
     printf("O resultado é: %.2f", resultado);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", resultado);
+
+    strcat(calculo_str, igualdade_str);
+    strcat(calculo_str, temporary);
+
+    write_history("../History/historico_radiciacao.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_radiciacao.txt");
+    }
 }
+
+    // User Interface manipulation
+
 void choose_option()
 {
     int operacao;
@@ -475,28 +634,19 @@ void choose_option()
     if (_continue == true)
     {
         back_menu();
-        history_choose();
+
         char choose = getch();
         if (choose != '1' && choose != '2')
         {
             _continue = false;
         };
-        if (choose == '2')
-        {
-            show_history("../History/historico_soma.txt");
-        }
     }
 
     CLS;
 }
 
-void gotoxy(int x, int y)
-{
-    COORD coord;
-    coord.X = x;
-    coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
+    // Main functions
+
 int main()
 {
     setlocale(LC_ALL, "utf-8");
@@ -508,9 +658,6 @@ int main()
         menucalculadora();
         choose_option();
     }
-
-    printf("\nPressione qualquer tecla para sair...");
-    getch();
 
     return 0;
 };
