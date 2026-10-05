@@ -50,15 +50,20 @@ void gotoxy(int x, int y)
 
     // Archive manager functions
 
-void write_history(char *address, char *text)
+void verify_archive_open(char *archive)
 {
-    FILE *archive = fopen(address, "a");
-
     if (archive == NULL)
     {
         printf(VERMELHO "Erro ao abrir o arquivo." RESET);
         return;
     }
+}
+
+void write_history(char *address, char *text)
+{
+    FILE *archive = fopen(address, "a");
+
+    verify_archive_open(archive);
 
     fputs(text, archive);
     fputs("\n", archive);
@@ -88,7 +93,7 @@ void show_history(char *address)
     fclose(archive);
 }
 
-    // Menu images
+// Menu images
 
 void menucalculadora()
 {
@@ -203,7 +208,7 @@ void invalid_option()
     }
 }
 
-    // Operation functions
+// Operation functions
 
 void Soma()
 {
@@ -595,7 +600,7 @@ void Radiciacao()
     }
 }
 
-    // User Interface manipulation
+// User Interface manipulation
 
 void choose_option()
 {
@@ -645,7 +650,7 @@ void choose_option()
     CLS;
 }
 
-    // Main functions
+// Main functions
 
 int main()
 {
