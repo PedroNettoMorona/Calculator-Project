@@ -50,7 +50,7 @@ void gotoxy(int x, int y)
 
     // Archive manager functions
 
-void verify_archive_open(char *archive)
+void verify_archive_open(FILE *archive)
 {
     if (archive == NULL)
     {
@@ -209,7 +209,6 @@ void invalid_option()
 }
 
 // Operation functions
-
 void Soma()
 {
     CLS;
@@ -228,8 +227,6 @@ void Soma()
     }
 
     int quantidade = 0;
-    float soma = 0, numero = 0;
-
     char calculo_str[1024] = "";
     char *igualdade_str = " = ";
     char temporary[50];
@@ -242,33 +239,55 @@ void Soma()
         printf("Quantidade inválida.\n");
         return;
     }
-
+    float *soma = calloc(1, sizeof(float));   // calloc
+    float *valores = malloc(sizeof(float));   // malloc
+    if (soma == NULL || valores == NULL)
+{
+    printf("Sem memória.\n");
+    free(soma);
+    free(valores);
+    return;
+}
     for (int i = 0; i < quantidade; i++)
     {
-        printf("Informe o valor %d: ", i + 1);
-        scanf("%f", &numero);
-        soma = soma + numero;
+        if (i > 0)
+        {
+    // realloc
+    float *tmp = realloc(valores, (i + 1) * sizeof(float));
+    if (tmp == NULL)
+    {
+        printf("Sem memória.\n");
+        free(soma);
+        free(valores);
+        return;
+    }
+    valores = tmp;
+        }
+printf("Informe o valor %d: ", i + 1);
+scanf("%f", &valores[i]);
+*soma = *soma + valores[i];
 
         // Armazenamento de histórico
         if (i == quantidade - 1)
         {
-            snprintf(temporary, sizeof(temporary), "%.2f", numero);
+            snprintf(temporary, sizeof(temporary), "%.2f", valores[i]);
         }
         else
         {
-            snprintf(temporary, sizeof(temporary), "%.2f + ", numero);
+            snprintf(temporary, sizeof(temporary), "%.2f + ", valores[i]);
         }
         strcat(calculo_str, temporary);
     }
-    printf("A soma é: %.2f\n", soma);
+    printf("A soma é: %.2f\n", *soma);
 
-    snprintf(temporary, sizeof(temporary), "%.2f", soma);
+    snprintf(temporary, sizeof(temporary), "%.2f", *soma);
 
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
 
     write_history("../History/historico_soma.txt", calculo_str);
-
+    free(soma);
+    free(valores);
     history_choose();
 
     char choose = getch();
@@ -277,7 +296,6 @@ void Soma()
         show_history("../History/historico_soma.txt");
     }
 }
-
 void Subtracao()
 {
     CLS;
@@ -666,4 +684,3 @@ int main()
 
     return 0;
 };
-//pedro==gay nervoso
