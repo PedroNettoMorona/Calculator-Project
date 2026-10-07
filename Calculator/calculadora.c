@@ -48,9 +48,9 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-    // Archive manager functions
+// Archive manager functions
 
-void verify_archive_open(char *archive)
+void verify_archive_open(FILE *archive)
 {
     if (archive == NULL)
     {
@@ -600,6 +600,65 @@ void Radiciacao()
     }
 }
 
+typedef struct Fibonacci
+{
+    int atual;
+    struct Fibonacci *anterior;
+    struct Fibonacci *proximo;
+} Fibonacci;
+
+Fibonacci *criarSequencia(int valor, Fibonacci **anterior)
+{
+    Fibonacci *novo = malloc(sizeof(Fibonacci));
+    if (novo == NULL)
+        return NULL;
+
+    novo->atual = valor;
+    novo->anterior = *anterior;
+    novo->proximo = NULL;
+
+    return novo;
+}
+
+void exibir(Fibonacci *inicio)
+{
+    Fibonacci *atual = inicio;
+    while (atual != NULL)
+    {
+        printf("%d", atual->atual);
+        atual = atual->proximo;
+    }
+}
+
+void Fibonacci_function()
+{
+    CLS;
+
+    int quantidade;
+
+    printf("Informe quantos números da sequência de fibonacci deseja ver: ");
+    scanf("%d", &quantidade);
+
+    int comeca = 1;
+    int depois = 1;
+
+    Fibonacci *primeiro = criarSequencia(comeca, NULL);
+    Fibonacci *segundo = criarSequencia(depois, &primeiro);
+
+    primeiro->proximo = segundo;
+
+    for (int i = 0; i < quantidade; i++)
+    {
+        Fibonacci *proximo = criarSequencia(0, &segundo);
+
+        proximo->anterior->proximo = proximo;
+
+        proximo->atual = proximo->anterior->atual + proximo->anterior->anterior->atual;
+    }
+
+    exibir(primeiro);
+}
+
 // User Interface manipulation
 
 void choose_option()
@@ -631,6 +690,9 @@ void choose_option()
         break;
     case 7:
         Soma();
+        break;
+    case 8:
+        Fibonacci_function();
         break;
     default:
         invalid_option();
@@ -666,4 +728,3 @@ int main()
 
     return 0;
 };
-//pedro==gay nervoso
