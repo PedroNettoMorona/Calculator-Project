@@ -48,7 +48,7 @@ void gotoxy(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-    // Archive manager functions
+// Archive manager functions
 
 void verify_archive_open(FILE *archive)
 {
@@ -239,33 +239,33 @@ void Soma()
         printf("Quantidade inválida.\n");
         return;
     }
-    float *soma = calloc(1, sizeof(float));   // calloc
-    float *valores = malloc(sizeof(float));   // malloc
+    float *soma = calloc(1, sizeof(float)); // calloc
+    float *valores = malloc(sizeof(float)); // malloc
     if (soma == NULL || valores == NULL)
-{
-    printf("Sem memória.\n");
-    free(soma);
-    free(valores);
-    return;
-}
-    for (int i = 0; i < quantidade; i++)
-    {
-        if (i > 0)
-        {
-    // realloc
-    float *tmp = realloc(valores, (i + 1) * sizeof(float));
-    if (tmp == NULL)
     {
         printf("Sem memória.\n");
         free(soma);
         free(valores);
         return;
     }
-    valores = tmp;
+    for (int i = 0; i < quantidade; i++)
+    {
+        if (i > 0)
+        {
+            // realloc
+            float *tmp = realloc(valores, (i + 1) * sizeof(float));
+            if (tmp == NULL)
+            {
+                printf("Sem memória.\n");
+                free(soma);
+                free(valores);
+                return;
+            }
+            valores = tmp;
         }
-printf("Informe o valor %d: ", i + 1);
-scanf("%f", &valores[i]);
-*soma = *soma + valores[i];
+        printf("Informe o valor %d: ", i + 1);
+        scanf("%f", &valores[i]);
+        *soma = *soma + valores[i];
 
         // Armazenamento de histórico
         if (i == quantidade - 1)
