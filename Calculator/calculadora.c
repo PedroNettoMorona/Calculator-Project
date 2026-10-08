@@ -607,56 +607,114 @@ typedef struct Fibonacci
     struct Fibonacci *proximo;
 } Fibonacci;
 
-Fibonacci *criarSequencia(int valor, Fibonacci **anterior)
+Fibonacci *criarSequenciaFibonacci(int valor, Fibonacci *anterior)
 {
     Fibonacci *novo = malloc(sizeof(Fibonacci));
     if (novo == NULL)
         return NULL;
 
     novo->atual = valor;
-    novo->anterior = *anterior;
+    novo->anterior = anterior;
     novo->proximo = NULL;
 
     return novo;
 }
 
-void exibir(Fibonacci *inicio)
+void exibirSequenciaFibonacci(Fibonacci *inicio)
 {
     Fibonacci *atual = inicio;
     while (atual != NULL)
     {
-        printf("%d", atual->atual);
+        printf("%d ", atual->atual);
         atual = atual->proximo;
     }
 }
 
-void Fibonacci_function()
+char* stringSequenciaFibonacci(Fibonacci *inicio)
+{
+    Fibonacci *atual = inicio;
+
+    char *calculo_str = calloc(4096, sizeof(char));
+
+    while (atual != NULL)
+    {
+        char valor_sequencia[50];
+        
+        snprintf(valor_sequencia, sizeof(valor_sequencia), "%d ", atual->atual);
+
+        strcat(calculo_str, valor_sequencia);
+
+        atual = atual->proximo;
+    }
+
+    return calculo_str;
+}
+
+void SequenciaFibonacci()
 {
     CLS;
+
+    char *fibonacci_image[6] = {
+        "███████╗██╗██████╗  ██████╗ ███╗   ██╗ █████╗  ██████╗ ██████╗██╗",
+        "██╔════╝██║██╔══██╗██╔═══██╗████╗  ██║██╔══██╗██╔════╝██╔════╝██║",
+        "█████╗  ██║██████╔╝██║   ██║██╔██╗ ██║███████║██║     ██║     ██║",
+        "██╔══╝  ██║██╔══██╗██║   ██║██║╚██╗██║██╔══██║██║     ██║     ██║",
+        "██║     ██║██████╔╝╚██████╔╝██║ ╚████║██║  ██║╚██████╗╚██████╗██║",
+        "╚═╝     ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝╚═╝"};
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("%s\n", fibonacci_image[i]);
+    }
 
     int quantidade;
 
     printf("Informe quantos números da sequência de fibonacci deseja ver: ");
     scanf("%d", &quantidade);
 
-    int comeca = 1;
-    int depois = 1;
+    if (quantidade <= 0)
+        return;
 
-    Fibonacci *primeiro = criarSequencia(comeca, NULL);
-    Fibonacci *segundo = criarSequencia(depois, &primeiro);
+    Fibonacci *primeiro = criarSequenciaFibonacci(1, NULL);
+
+    if (quantidade == 1)
+    {
+        exibirSequenciaFibonacci(primeiro);
+        return;
+    }
+
+    Fibonacci *segundo = criarSequenciaFibonacci(1, primeiro);
 
     primeiro->proximo = segundo;
 
-    for (int i = 0; i < quantidade; i++)
+    Fibonacci *ultimo_valor = segundo;
+
+    for (int i = 2; i < quantidade; i++)
     {
-        Fibonacci *proximo = criarSequencia(0, &segundo);
+        Fibonacci *proximo = criarSequenciaFibonacci(0, ultimo_valor);
 
         proximo->anterior->proximo = proximo;
 
         proximo->atual = proximo->anterior->atual + proximo->anterior->anterior->atual;
+
+        ultimo_valor = proximo;
     }
 
-    exibir(primeiro);
+    exibirSequenciaFibonacci(primeiro);
+    
+    char *text = stringSequenciaFibonacci(primeiro);
+    
+    write_history("../History/historico_fibonacci.txt", text);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_fibonacci.txt");
+    }
+
+    free(text);
 }
 
 // User Interface manipulation
@@ -692,7 +750,7 @@ void choose_option()
         Soma();
         break;
     case 8:
-        Fibonacci_function();
+        SequenciaFibonacci();
         break;
     default:
         invalid_option();
