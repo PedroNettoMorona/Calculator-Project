@@ -10,6 +10,8 @@
 
 #define CLS system("cls")
 
+#define PI 3.1415
+
 // CORES ANSI
 #define PRETO "\x1b[30m"
 #define VERMELHO "\x1b[31m"
@@ -648,7 +650,7 @@ void exibirSequenciaFibonacci(Fibonacci *inicio)
     }
 }
 
-char* stringSequenciaFibonacci(Fibonacci *inicio)
+char *stringSequenciaFibonacci(Fibonacci *inicio)
 {
     Fibonacci *atual = inicio;
 
@@ -657,7 +659,7 @@ char* stringSequenciaFibonacci(Fibonacci *inicio)
     while (atual != NULL)
     {
         char valor_sequencia[50];
-        
+
         snprintf(valor_sequencia, sizeof(valor_sequencia), "%d ", atual->atual);
 
         strcat(calculo_str, valor_sequencia);
@@ -729,9 +731,9 @@ void SequenciaFibonacci()
     }
 
     exibirSequenciaFibonacci(primeiro);
-    
+
     char *text = stringSequenciaFibonacci(primeiro);
-    
+
     write_history("../History/historico_fibonacci.txt", text);
 
     history_choose();
@@ -743,6 +745,110 @@ void SequenciaFibonacci()
     }
 
     free(text);
+}
+
+void AreaCirculo()
+{
+    CLS;
+
+    char *area_circulo_image[6] = {
+        " █████╗ ██████╗ ███████╗ █████╗     ██████╗  ██████╗      ██████╗██╗██████╗  ██████╗██╗   ██╗██╗      ██████╗ ",
+        "██╔══██╗██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██╔═══██╗    ██╔════╝██║██╔══██╗██╔════╝██║   ██║██║     ██╔═══██╗",
+        "███████║██████╔╝█████╗  ███████║    ██║  ██║██║   ██║    ██║     ██║██████╔╝██║     ██║   ██║██║     ██║   ██║",
+        "██╔══██║██╔══██╗██╔══╝  ██╔══██║    ██║  ██║██║   ██║    ██║     ██║██╔══██╗██║     ██║   ██║██║     ██║   ██║",
+        "██║  ██║██║  ██║███████╗██║  ██║    ██████╔╝╚██████╔╝    ╚██████╗██║██║  ██║╚██████╗╚██████╔╝███████╗╚██████╔╝",
+        "╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚═════╝  ╚═════╝      ╚═════╝╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝ ╚═════╝ "};
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("%s\n", area_circulo_image[i]);
+    }
+
+    float raio, area_circulo;
+
+    printf("Informe o raio do circulo: ");
+    scanf("%f", &raio);
+
+    area_circulo = PI * (raio * raio);
+
+    printf("%.2f", area_circulo);
+
+    char calculo_str[1024] = "Raio: ";
+    char *igualdade_str = " = ";
+    char temporary[50];
+
+    snprintf(temporary, sizeof(temporary), "%.2f", raio);
+    strcat(calculo_str, temporary);
+
+    strcat(calculo_str, igualdade_str);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", area_circulo);
+    strcat(calculo_str, temporary);
+
+    write_history("../History/historico_area_do_circulo.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_area_do_circulo.txt");
+    }
+}
+
+void AreaRetangulo()
+{
+    CLS;
+
+    char *area_retangulo_image[6] = {
+        " █████╗ ██████╗ ███████╗ █████╗     ██████╗  ██████╗     ██████╗ ███████╗████████╗ █████╗ ███╗   ██╗ ██████╗ ██╗   ██╗██╗      ██████╗ ",
+        "██╔══██╗██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██╔═══██╗    ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗████╗  ██║██╔════╝ ██║   ██║██║     ██╔═══██╗",
+        "███████║██████╔╝█████╗  ███████║    ██║  ██║██║   ██║    ██████╔╝█████╗     ██║   ███████║██╔██╗ ██║██║  ███╗██║   ██║██║     ██║   ██║",
+        "██╔══██║██╔══██╗██╔══╝  ██╔══██║    ██║  ██║██║   ██║    ██╔══██╗██╔══╝     ██║   ██╔══██║██║╚██╗██║██║   ██║██║   ██║██║     ██║   ██║",
+        "██║  ██║██║  ██║███████╗██║  ██║    ██████╔╝╚██████╔╝    ██║  ██║███████╗   ██║   ██║  ██║██║ ╚████║╚██████╔╝╚██████╔╝███████╗╚██████╔╝",
+        "╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚═════╝  ╚═════╝     ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝ "};
+
+    for (int i = 0; i < 6; i++)
+    {
+        printf("%s\n", area_retangulo_image[i]);
+    }
+
+    float base, altura, area_retangulo;
+
+    printf("Informe a base: "); scanf("%f", &base);
+    printf("Informe a altura: "); scanf("%f", &altura);
+
+    area_retangulo = base * altura;
+
+    printf("%.2f", area_retangulo);
+
+    char calculo_str[1024] = "";
+    char *multiplicador = " * ";
+    char *igualdade = " = ";
+    char temporary[50];
+
+    snprintf(temporary, sizeof(temporary), "%.2f", base);
+    strcat(calculo_str, temporary);
+
+    strcat(calculo_str, multiplicador);
+    
+    snprintf(temporary, sizeof(temporary), "%.2f", altura);
+    strcat(calculo_str, temporary);
+    
+    strcat(calculo_str, igualdade);
+    
+    snprintf(temporary, sizeof(temporary), "%.2f", area_retangulo);
+    strcat(calculo_str, temporary);
+
+    write_history("../History/historico_area_do_retangulo.txt", calculo_str);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        show_history("../History/historico_area_do_retangulo.txt");
+    }
 }
 
 // User Interface manipulation
@@ -779,6 +885,12 @@ void choose_option()
         break;
     case 8:
         SequenciaFibonacci();
+        break;
+    case 9:
+        AreaCirculo();
+        break;
+    case 10:
+        AreaRetangulo();
         break;
     default:
         invalid_option();
