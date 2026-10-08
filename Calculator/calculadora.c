@@ -698,6 +698,16 @@ void SequenciaFibonacci()
     if (quantidade == 1)
     {
         exibirSequenciaFibonacci(primeiro);
+        write_history("../History/historico_fibonacci.txt", "1");
+
+        history_choose();
+
+        char choose = getch();
+        if (choose == '2')
+        {
+            show_history("../History/historico_fibonacci.txt");
+        }
+
         return;
     }
 
