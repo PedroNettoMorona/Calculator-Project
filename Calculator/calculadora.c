@@ -127,6 +127,7 @@ void menucalculadora()
     printf("10- Área do retângulo\n");
     printf("11- Volume do Cubo\n");
     printf("12- Volume do Cilindro\n");
+    printf("14- Mostrar histórico geral\n");
     printf("0-Sair\n");
     printf(VERMELHO "Escolha uma opção:\n" RESET);
 }
@@ -241,8 +242,10 @@ void Soma()
         printf("Quantidade inválida.\n");
         return;
     }
+
     float *soma = calloc(1, sizeof(float)); // calloc
     float *valores = malloc(sizeof(float)); // malloc
+
     if (soma == NULL || valores == NULL)
     {
         printf("Sem memória.\n");
@@ -250,12 +253,14 @@ void Soma()
         free(valores);
         return;
     }
+
     for (int i = 0; i < quantidade; i++)
     {
         if (i > 0)
         {
             // realloc
             float *tmp = realloc(valores, (i + 1) * sizeof(float));
+
             if (tmp == NULL)
             {
                 printf("Sem memória.\n");
@@ -263,10 +268,13 @@ void Soma()
                 free(valores);
                 return;
             }
+
             valores = tmp;
         }
+
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &valores[i]);
+
         *soma = *soma + valores[i];
 
         // Armazenamento de histórico
@@ -287,9 +295,13 @@ void Soma()
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Soma: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_soma.txt", calculo_str);
-    free(soma);
-    free(valores);
+    write_history("../History/historico_geral.txt", geral_text);
+
     history_choose();
 
     char choose = getch();
@@ -297,6 +309,9 @@ void Soma()
     {
         show_history("../History/historico_soma.txt");
     }
+
+    free(soma);
+    free(valores);
 }
 void Subtracao()
 {
@@ -359,7 +374,12 @@ void Subtracao()
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Subtração: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_subtracao.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -427,7 +447,12 @@ void Multiplicacao()
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Multiplicação: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_multiplicacao.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -501,7 +526,12 @@ void Divisao()
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Divisão: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_divisao.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -560,7 +590,12 @@ void Exponenciacao()
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Exponenciação: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_exponenciacao.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -570,6 +605,7 @@ void Exponenciacao()
         show_history("../History/historico_exponenciacao.txt");
     }
 }
+
 void Radiciacao()
 {
     CLS;
@@ -609,7 +645,12 @@ void Radiciacao()
     strcat(calculo_str, igualdade_str);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Radiciação: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_radiciacao.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -701,6 +742,7 @@ void SequenciaFibonacci()
     {
         exibirSequenciaFibonacci(primeiro);
         write_history("../History/historico_fibonacci.txt", "1");
+        write_history("../History/historico_geral.txt", "Fibonacci: 1");
 
         history_choose();
 
@@ -732,9 +774,13 @@ void SequenciaFibonacci()
 
     exibirSequenciaFibonacci(primeiro);
 
+    char geral_text[512] = "Fibonacci: ";
     char *text = stringSequenciaFibonacci(primeiro);
 
+    strcat(geral_text, text);
+
     write_history("../History/historico_fibonacci.txt", text);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -785,7 +831,12 @@ void AreaCirculo()
     snprintf(temporary, sizeof(temporary), "%.2f", area_circulo);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Área do Círculo: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_area_do_circulo.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -815,8 +866,10 @@ void AreaRetangulo()
 
     float base, altura, area_retangulo;
 
-    printf("Informe a base: "); scanf("%f", &base);
-    printf("Informe a altura: "); scanf("%f", &altura);
+    printf("Informe a base: ");
+    scanf("%f", &base);
+    printf("Informe a altura: ");
+    scanf("%f", &altura);
 
     area_retangulo = base * altura;
 
@@ -831,16 +884,21 @@ void AreaRetangulo()
     strcat(calculo_str, temporary);
 
     strcat(calculo_str, multiplicador);
-    
+
     snprintf(temporary, sizeof(temporary), "%.2f", altura);
     strcat(calculo_str, temporary);
-    
+
     strcat(calculo_str, igualdade);
-    
+
     snprintf(temporary, sizeof(temporary), "%.2f", area_retangulo);
     strcat(calculo_str, temporary);
 
+    char geral_text[512] = "Área do Retângulo: ";
+
+    strcat(geral_text, calculo_str);
+
     write_history("../History/historico_area_do_retangulo.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
 
     history_choose();
 
@@ -850,6 +908,8 @@ void AreaRetangulo()
         show_history("../History/historico_area_do_retangulo.txt");
     }
 }
+
+
 
 // User Interface manipulation
 
@@ -892,6 +952,12 @@ void choose_option()
     case 10:
         AreaRetangulo();
         break;
+
+    case 14:
+        CLS;
+        show_history("../History/historico_geral.txt");
+        break;
+
     default:
         invalid_option();
     }
