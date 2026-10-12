@@ -42,7 +42,13 @@
 
 bool _continue = true;
 
-void gotoxy(int x, int y)
+int LinhaInicial = 0;
+int LinhaFinal = 40;
+
+int ColunaInicial = 0;
+int ColunaFinal = 155;
+
+void gotoXY(int x, int y)
 {
     COORD coord;
     coord.X = x;
@@ -59,6 +65,28 @@ void verify_archive_open(FILE *archive)
         printf(VERMELHO "Erro ao abrir o arquivo." RESET);
         return;
     }
+}
+
+void Moldura(char *sEsquerdoM, char *sDireitoM, char *iEsquerdoM, char *iDireitoM, char *horizontalM, char *verticalM, int lInicialM, int lFinalM, int cInicialM, int cFinalM)
+{
+    int c, l;
+    for (l = lInicialM; l <= lFinalM; l++)
+        for (c = cInicialM; c <= cFinalM; c++)
+        {
+            gotoXY(c, l);
+            if (l == lInicialM && c == cInicialM)
+                printf("%s", sEsquerdoM);
+            else if (l == lInicialM && c == cFinalM)
+                printf("%s", sDireitoM);
+            else if (l == lFinalM && c == cInicialM)
+                printf("%s", iEsquerdoM);
+            else if (l == lFinalM && c == cFinalM)
+                printf("%s", iDireitoM);
+            else if (l == lInicialM || l == lFinalM)
+                printf("%s", horizontalM);
+            else if (c == cInicialM || c == cFinalM)
+                printf("%s", verticalM);
+        }
 }
 
 void write_history(char *address, char *text)
@@ -85,9 +113,12 @@ void show_history(char *address)
 
     char line[1024];
 
+    int counter = 8;
     while (fgets(line, sizeof(line), archive) != NULL)
     {
+        gotoXY(ColunaInicial + 69, LinhaInicial + counter);
         printf("%s", line);
+        counter++;
     }
 
     getch();
@@ -99,8 +130,9 @@ void show_history(char *address)
 
 void menucalculadora()
 {
-
     CLS;
+
+    Moldura("\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
 
     char *calculator_image[6] = {
         " ██████╗ █████╗ ██╗      ██████╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗ ",
@@ -112,28 +144,55 @@ void menucalculadora()
 
     for (int i = 0; i < 6; i++)
     {
+        gotoXY(40, i + 1);
         printf("%s\n", calculator_image[i]);
     }
 
+    gotoXY(5, 10);
     printf("1-Soma\n");
+    gotoXY(5, 11);
     printf("2-Subtração\n");
+    gotoXY(5, 12);
     printf("3-Multiplicação\n");
+    gotoXY(5, 13);
     printf("4-Divisão\n");
+    gotoXY(5, 14);
     printf("5-Exponenciação\n");
+    gotoXY(5, 15);
     printf("6-Raiz Quadrada\n");
+    gotoXY(5, 16);
     printf("7-Soma de n Valores\n");
+    gotoXY(5, 17);
     printf("8-Cálculo da Sequencia de Fibonacci\n");
+    gotoXY(5, 18);
     printf("9- Área do circulo\n");
+    gotoXY(5, 19);
     printf("10- Área do retângulo\n");
+    gotoXY(5, 20);
     printf("11- Volume do Cubo\n");
+    gotoXY(5, 21);
     printf("12- Volume do Cilindro\n");
+    gotoXY(5, 22);
     printf("14- Mostrar histórico geral\n");
+    gotoXY(5, 23);
     printf("0-Sair\n");
-    printf(VERMELHO "Escolha uma opção:\n" RESET);
+    gotoXY(5, 24);
+    printf(VERDE "Escolha uma opção:\n" RESET);
+}
+
+void clear_choose_option()
+{
+    for (int i = LinhaFinal - 6; i < LinhaFinal; i++)
+    {
+        gotoXY(70, i);
+        printf("                                                                                     ");
+    }
 }
 
 void back_menu()
 {
+    clear_choose_option();
+
     char *back_menu_image[6] = {
         "███╗   ███╗███████╗███╗   ██╗██╗   ██╗        ██╗ ██╗██╗ ",
         "████╗ ████║██╔════╝████╗  ██║██║   ██║██╗    ██╔╝███║╚██╗",
@@ -142,38 +201,30 @@ void back_menu()
         "██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝╚═╝    ╚██╗ ██║██╔╝",
         "╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝         ╚═╝ ╚═╝╚═╝ "};
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0, cont = 6; i < 6; i++, cont--)
     {
-        printf("\n");
-    }
-
-    for (int i = 0; i < 6; i++)
-    {
-        printf("\n%s", back_menu_image[i]);
+        gotoXY(70, LinhaFinal - cont);
+        printf("%s", back_menu_image[i]);
     }
 }
 
 void history_choose()
 {
+    clear_choose_option();
+
     char *show_history_image[6] = {
-        "███╗   ███╗ ██████╗ ███████╗████████╗██████╗  █████╗ ██████╗     ██╗  ██╗██╗███████╗████████╗ ██████╗ ██████╗ ██╗ ██████╗ ██████╗     ██╗██████╗ ██╗ ",
-        "████╗ ████║██╔═══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗    ██║  ██║██║██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗██║██╔════╝██╔═══██╗   ██╔╝╚════██╗╚██╗",
-        "██╔████╔██║██║   ██║███████╗   ██║   ██████╔╝███████║██████╔╝    ███████║██║███████╗   ██║   ██║   ██║██████╔╝██║██║     ██║   ██║   ██║  █████╔╝ ██║",
-        "██║╚██╔╝██║██║   ██║╚════██║   ██║   ██╔══██╗██╔══██║██╔══██╗    ██╔══██║██║╚════██║   ██║   ██║   ██║██╔══██╗██║██║     ██║   ██║   ██║ ██╔═══╝  ██║",
-        "██║ ╚═╝ ██║╚██████╔╝███████║   ██║   ██║  ██║██║  ██║██║  ██║    ██║  ██║██║███████║   ██║   ╚██████╔╝██║  ██║██║╚██████╗╚██████╔╝   ╚██╗███████╗██╔╝",
-        "╚═╝     ╚═╝ ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═════╝     ╚═╝╚══════╝╚═╝ "};
+        "██╗  ██╗██╗███████╗████████╗ ██████╗ ██████╗ ██╗ ██████╗ ██████╗     ██╗██████╗ ██╗ ",
+        "██║  ██║██║██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗██║██╔════╝██╔═══██╗   ██╔╝╚════██╗╚██╗",
+        "███████║██║███████╗   ██║   ██║   ██║██████╔╝██║██║     ██║   ██║   ██║  █████╔╝ ██║",
+        "██╔══██║██║╚════██║   ██║   ██║   ██║██╔══██╗██║██║     ██║   ██║   ██║ ██╔═══╝  ██║",
+        "██║  ██║██║███████║   ██║   ╚██████╔╝██║  ██║██║╚██████╗╚██████╔╝   ╚██╗███████╗██╔╝",
+        "╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═════╝     ╚═╝╚══════╝╚═╝ "};
 
-    for (int i = 0; i < 3; i++)
+    for (int i = 0, cont = 6; i < 6; i++, cont--)
     {
-        printf("\n");
+        gotoXY(70, LinhaFinal - cont);
+        printf("%s", show_history_image[i]);
     }
-
-    for (int i = 0; i < 6; i++)
-    {
-        printf("\n%s", show_history_image[i]);
-    }
-
-    printf("\n");
 }
 
 void invalid_option()
@@ -216,6 +267,8 @@ void Soma()
 {
     CLS;
 
+    Moldura("\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
+
     char *sum_image[6] = {
         "███████╗ ██████╗ ███╗   ███╗ █████╗ ",
         "██╔════╝██╔═══██╗████╗ ████║██╔══██╗",
@@ -226,6 +279,7 @@ void Soma()
 
     for (int i = 0; i < 6; i++)
     {
+        gotoXY(60, i + 1);
         printf("%s\n", sum_image[i]);
     }
 
@@ -234,6 +288,13 @@ void Soma()
     char *igualdade_str = " = ";
     char temporary[50];
 
+    int text_line = 8;
+
+    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 1, ColunaInicial + 1, ColunaFinal - 88);
+
+    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 7, ColunaInicial + 68, ColunaFinal - 1);
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Quantos valores deseja somar: ");
     scanf("%d", &quantidade);
 
@@ -272,6 +333,8 @@ void Soma()
             valores = tmp;
         }
 
+        text_line++;
+        gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &valores[i]);
 
@@ -288,6 +351,9 @@ void Soma()
         }
         strcat(calculo_str, temporary);
     }
+
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("A soma é: %.2f\n", *soma);
 
     snprintf(temporary, sizeof(temporary), "%.2f", *soma);
@@ -909,13 +975,12 @@ void AreaRetangulo()
     }
 }
 
-
-
 // User Interface manipulation
 
 void choose_option()
 {
     int operacao;
+    gotoXY(5, 25);
     scanf("%d", &operacao);
     switch (operacao)
     {
