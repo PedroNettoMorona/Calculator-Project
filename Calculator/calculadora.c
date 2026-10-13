@@ -89,6 +89,15 @@ void Moldura(char *sEsquerdoM, char *sDireitoM, char *iEsquerdoM, char *iDireito
         }
 }
 
+void print_molduras()
+{
+    Moldura("\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
+
+    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 1, ColunaInicial + 1, ColunaFinal - 88);
+
+    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 7, ColunaInicial + 68, ColunaFinal - 1);
+}
+
 void write_history(char *address, char *text)
 {
     FILE *archive = fopen(address, "a");
@@ -149,34 +158,34 @@ void menucalculadora()
     }
 
     gotoXY(5, 10);
-    printf("1-Soma\n");
+    printf(" 1 - Soma\n");
     gotoXY(5, 11);
-    printf("2-Subtração\n");
+    printf(" 2 - Subtração\n");
     gotoXY(5, 12);
-    printf("3-Multiplicação\n");
+    printf(" 3 - Multiplicação\n");
     gotoXY(5, 13);
-    printf("4-Divisão\n");
+    printf(" 4 - Divisão\n");
     gotoXY(5, 14);
-    printf("5-Exponenciação\n");
+    printf(" 5 - Exponenciação\n");
     gotoXY(5, 15);
-    printf("6-Raiz Quadrada\n");
+    printf(" 6 - Raiz Quadrada\n");
     gotoXY(5, 16);
-    printf("7-Soma de n Valores\n");
+    printf(" 7 - Soma de n Valores\n");
     gotoXY(5, 17);
-    printf("8-Cálculo da Sequencia de Fibonacci\n");
+    printf(" 8 - Cálculo da Sequencia de Fibonacci\n");
     gotoXY(5, 18);
-    printf("9- Área do circulo\n");
+    printf(" 9 - Área do circulo\n");
     gotoXY(5, 19);
-    printf("10- Área do retângulo\n");
+    printf("10 - Área do retângulo\n");
     gotoXY(5, 20);
-    printf("11- Volume do Cubo\n");
+    printf("11 - Volume do Cubo\n");
     gotoXY(5, 21);
-    printf("12- Volume do Cilindro\n");
+    printf("12 - Volume do Cilindro\n");
     gotoXY(5, 22);
-    printf("14- Mostrar histórico geral\n");
-    gotoXY(5, 23);
-    printf("0-Sair\n");
+    printf("14 - Mostrar histórico geral\n");
     gotoXY(5, 24);
+    printf(" 0 - Sair\n");
+    gotoXY(5, 26);
     printf(VERDE "Escolha uma opção:\n" RESET);
 }
 
@@ -185,7 +194,7 @@ void clear_choose_option()
     for (int i = LinhaFinal - 6; i < LinhaFinal; i++)
     {
         gotoXY(70, i);
-        printf("                                                                                     ");
+        printf("                                                                                     "); // 75 espaços (nao mudar)
     }
 }
 
@@ -267,7 +276,7 @@ void Soma()
 {
     CLS;
 
-    Moldura("\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
+    print_molduras();
 
     char *sum_image[6] = {
         "███████╗ ██████╗ ███╗   ███╗ █████╗ ",
@@ -280,7 +289,7 @@ void Soma()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(60, i + 1);
-        printf("%s\n", sum_image[i]);
+        printf("%s", sum_image[i]);
     }
 
     int quantidade = 0;
@@ -289,10 +298,6 @@ void Soma()
     char temporary[50];
 
     int text_line = 8;
-
-    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 1, ColunaInicial + 1, ColunaFinal - 88);
-
-    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 7, ColunaInicial + 68, ColunaFinal - 1);
 
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Quantos valores deseja somar: ");
@@ -383,6 +388,8 @@ void Subtracao()
 {
     CLS;
 
+    print_molduras();
+
     char *subtraction_image[6] = {
         "███████╗██╗   ██╗██████╗ ████████╗██████╗  █████╗  ██████╗ █████╗  ██████╗ ",
         "██╔════╝██║   ██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔═══██╗",
@@ -393,7 +400,8 @@ void Subtracao()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", subtraction_image[i]);
+        gotoXY(40, i + 1);
+        printf("%s", subtraction_image[i]);
     }
 
     int quantidade = 0;
@@ -403,6 +411,9 @@ void Subtracao()
     char *igualdade_str = " = ";
     char temporary[50];
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Quantos valores deseja subtrair: ");
     scanf("%d", &quantidade);
 
@@ -414,6 +425,8 @@ void Subtracao()
 
     for (int i = 0; i < quantidade; i++)
     {
+        text_line++;
+        gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &numero);
 
@@ -433,6 +446,8 @@ void Subtracao()
         strcat(calculo_str, temporary);
     }
 
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("A subtração é: %.2f\n", subtracao);
 
     snprintf(temporary, sizeof(temporary), "%.2f", subtracao);
@@ -460,6 +475,8 @@ void Multiplicacao()
 {
     CLS;
 
+    print_molduras();
+
     char *multiplication_image[6] = {
         "███╗   ███╗██╗   ██╗██╗  ████████╗██╗██████╗ ██╗     ██╗ ██████╗ █████╗  ██████╗ █████╗  ██████╗ ",
         "████╗ ████║██║   ██║██║  ╚══██╔══╝██║██╔══██╗██║     ██║██╔════╝██╔══██╗██╔════╝██╔══██╗██╔═══██╗",
@@ -470,7 +487,8 @@ void Multiplicacao()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", multiplication_image[i]);
+        gotoXY(35, i + 1);
+        printf("%s", multiplication_image[i]);
     }
 
     int quantidade = 0;
@@ -480,17 +498,23 @@ void Multiplicacao()
     char *igualdade_str = " = ";
     char temporary[50];
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Quantos valores deseja multiplicar: ");
     scanf("%d", &quantidade);
 
     if (quantidade <= 0)
     {
+        gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
         printf("Quantidade inválida.\n");
         return;
     }
 
     for (int i = 0; i < quantidade; i++)
     {
+        text_line++;
+        gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &numero);
         multiplicacao = multiplicacao * numero;
@@ -506,6 +530,8 @@ void Multiplicacao()
         strcat(calculo_str, temporary);
     }
 
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("A multiplicação é: %.2f\n", multiplicacao);
 
     snprintf(temporary, sizeof(temporary), "%.2f", multiplicacao);
@@ -533,6 +559,8 @@ void Divisao()
 {
     CLS;
 
+    print_molduras();
+
     char *division_image[6] = {
         "██████╗ ██╗██╗   ██╗██╗███████╗ █████╗  ██████╗ ",
         "██╔══██╗██║██║   ██║██║██╔════╝██╔══██╗██╔═══██╗",
@@ -543,11 +571,15 @@ void Divisao()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", division_image[i]);
+        gotoXY(50, i + 1);
+        printf("%s", division_image[i]);
     }
 
     int quantidade = 0;
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Quantos valores deseja dividir: ");
     scanf("%d", &quantidade);
 
@@ -565,6 +597,8 @@ void Divisao()
 
     for (int i = 0; i < quantidade; i++)
     {
+        text_line++;
+        gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
         printf("Informe o valor %d: ", i + 1);
         scanf("%f", &numero[i]);
 
@@ -585,6 +619,8 @@ void Divisao()
         divisao = divisao / numero[i];
     }
 
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("A divisão é: %.2f\n", divisao);
 
     snprintf(temporary, sizeof(temporary), "%.2f", divisao);
@@ -612,6 +648,8 @@ void Exponenciacao()
 {
     CLS;
 
+    print_molduras();
+
     char *exponentiation_image[6] = {
         "███████╗██╗  ██╗██████╗  ██████╗ ███╗   ██╗███████╗███╗   ██╗ ██████╗██╗ █████╗  ██████╗ █████╗  ██████╗ ",
         "██╔════╝╚██╗██╔╝██╔══██╗██╔═══██╗████╗  ██║██╔════╝████╗  ██║██╔════╝██║██╔══██╗██╔════╝██╔══██╗██╔═══██╗",
@@ -622,7 +660,8 @@ void Exponenciacao()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", exponentiation_image[i]);
+        gotoXY(30, i + 1);
+        printf("%s", exponentiation_image[i]);
     }
 
     int expoente;
@@ -633,9 +672,15 @@ void Exponenciacao()
     char *igualdade_str = " = ";
     char temporary[50];
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Informe a base da exponenciação: ");
     scanf("%f", &base);
 
+    text_line++;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Informe o expoente: ");
     scanf("%d", &expoente);
 
@@ -649,6 +694,8 @@ void Exponenciacao()
 
     strcat(calculo_str, temporary);
 
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("O resultado é: %.2f", resultado);
 
     snprintf(temporary, sizeof(temporary), "%.2f", resultado);
@@ -676,6 +723,8 @@ void Radiciacao()
 {
     CLS;
 
+    print_molduras();
+
     char *square_root_image[6] = {
         "██████╗  █████╗ ██╗███████╗     ██████╗ ██╗   ██╗ █████╗ ██████╗ ██████╗  █████╗ ██████╗  █████╗ ",
         "██╔══██╗██╔══██╗██║╚══███╔╝    ██╔═══██╗██║   ██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗",
@@ -686,7 +735,8 @@ void Radiciacao()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", square_root_image[i]);
+        gotoXY(30, i + 1);
+        printf("%s", square_root_image[i]);
     }
 
     float radicando;
@@ -696,6 +746,9 @@ void Radiciacao()
     char *igualdade_str = " = ";
     char temporary[50];
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Informe o radicando: ");
     scanf("%f", &radicando);
 
@@ -704,6 +757,8 @@ void Radiciacao()
     snprintf(temporary, sizeof(temporary), "sqrt(%.2f)", radicando);
     strcat(calculo_str, temporary);
 
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("O resultado é: %.2f", resultado);
 
     snprintf(temporary, sizeof(temporary), "%.2f", resultado);
@@ -750,6 +805,7 @@ Fibonacci *criarSequenciaFibonacci(int valor, Fibonacci *anterior)
 void exibirSequenciaFibonacci(Fibonacci *inicio)
 {
     Fibonacci *atual = inicio;
+
     while (atual != NULL)
     {
         printf("%d ", atual->atual);
@@ -781,6 +837,8 @@ void SequenciaFibonacci()
 {
     CLS;
 
+    print_molduras();
+
     char *fibonacci_image[6] = {
         "███████╗██╗██████╗  ██████╗ ███╗   ██╗ █████╗  ██████╗ ██████╗██╗",
         "██╔════╝██║██╔══██╗██╔═══██╗████╗  ██║██╔══██╗██╔════╝██╔════╝██║",
@@ -791,11 +849,15 @@ void SequenciaFibonacci()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", fibonacci_image[i]);
+        gotoXY(45, i + 1);
+        printf("%s", fibonacci_image[i]);
     }
 
     int quantidade;
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Informe quantos números da sequência de fibonacci deseja ver: ");
     scanf("%d", &quantidade);
 
@@ -838,6 +900,8 @@ void SequenciaFibonacci()
         ultimo_valor = proximo;
     }
 
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     exibirSequenciaFibonacci(primeiro);
 
     char geral_text[512] = "Fibonacci: ";
@@ -863,6 +927,8 @@ void AreaCirculo()
 {
     CLS;
 
+    print_molduras();
+
     char *area_circulo_image[6] = {
         " █████╗ ██████╗ ███████╗ █████╗     ██████╗  ██████╗      ██████╗██╗██████╗  ██████╗██╗   ██╗██╗      ██████╗ ",
         "██╔══██╗██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██╔═══██╗    ██╔════╝██║██╔══██╗██╔════╝██║   ██║██║     ██╔═══██╗",
@@ -873,17 +939,23 @@ void AreaCirculo()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", area_circulo_image[i]);
+        gotoXY(25, i + 1);
+        printf("%s", area_circulo_image[i]);
     }
 
     float raio, area_circulo;
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Informe o raio do circulo: ");
     scanf("%f", &raio);
 
     area_circulo = PI * (raio * raio);
 
-    printf("%.2f", area_circulo);
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
+    printf("O resultado é: %.2f", area_circulo);
 
     char calculo_str[1024] = "Raio: ";
     char *igualdade_str = " = ";
@@ -917,6 +989,8 @@ void AreaRetangulo()
 {
     CLS;
 
+    print_molduras();
+
     char *area_retangulo_image[6] = {
         " █████╗ ██████╗ ███████╗ █████╗     ██████╗  ██████╗     ██████╗ ███████╗████████╗ █████╗ ███╗   ██╗ ██████╗ ██╗   ██╗██╗      ██████╗ ",
         "██╔══██╗██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██╔═══██╗    ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗████╗  ██║██╔════╝ ██║   ██║██║     ██╔═══██╗",
@@ -927,19 +1001,29 @@ void AreaRetangulo()
 
     for (int i = 0; i < 6; i++)
     {
-        printf("%s\n", area_retangulo_image[i]);
+        gotoXY(10, i + 1);
+        printf("%s", area_retangulo_image[i]);
     }
 
     float base, altura, area_retangulo;
 
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Informe a base: ");
     scanf("%f", &base);
+
+    text_line++;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
     printf("Informe a altura: ");
     scanf("%f", &altura);
 
     area_retangulo = base * altura;
 
-    printf("%.2f", area_retangulo);
+    text_line++;
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
+    printf("O resultado é: %.2f", area_retangulo);
 
     char calculo_str[1024] = "";
     char *multiplicador = " * ";
@@ -980,7 +1064,7 @@ void AreaRetangulo()
 void choose_option()
 {
     int operacao;
-    gotoXY(5, 25);
+    gotoXY(5, 27);
     scanf("%d", &operacao);
     switch (operacao)
     {
