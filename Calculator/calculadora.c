@@ -1204,6 +1204,7 @@ void choose_option()
         VolumeCubo();
         break;
     case 14:
+        // PRECISA CONCERTAR ESSE CASE 14 (HISTÓRICO GERAL)
         CLS;
         show_history("../History/historico_geral.txt");
         break;
