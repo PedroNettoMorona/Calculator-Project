@@ -153,39 +153,39 @@ void menucalculadora()
 
     for (int i = 0; i < 6; i++)
     {
-        gotoXY(40, i + 1);
-        printf("%s\n", calculator_image[i]);
+        gotoXY(35, i + 1);
+        printf(AZUL "%s" RESET, calculator_image[i]);
     }
 
-    gotoXY(5, 10);
+    gotoXY(35, 10);
     printf(" 1 - Soma\n");
-    gotoXY(5, 11);
+    gotoXY(35, 11);
     printf(" 2 - Subtração\n");
-    gotoXY(5, 12);
+    gotoXY(35, 12);
     printf(" 3 - Multiplicação\n");
-    gotoXY(5, 13);
+    gotoXY(35, 13);
     printf(" 4 - Divisão\n");
-    gotoXY(5, 14);
+    gotoXY(35, 14);
     printf(" 5 - Exponenciação\n");
-    gotoXY(5, 15);
+    gotoXY(35, 15);
     printf(" 6 - Raiz Quadrada\n");
-    gotoXY(5, 16);
+    gotoXY(35, 16);
     printf(" 7 - Soma de n Valores\n");
-    gotoXY(5, 17);
+    gotoXY(35, 17);
     printf(" 8 - Cálculo da Sequencia de Fibonacci\n");
-    gotoXY(5, 18);
+    gotoXY(35, 18);
     printf(" 9 - Área do circulo\n");
-    gotoXY(5, 19);
+    gotoXY(85, 10);
     printf("10 - Área do retângulo\n");
-    gotoXY(5, 20);
+    gotoXY(85, 11);
     printf("11 - Volume do Cubo\n");
-    gotoXY(5, 21);
+    gotoXY(85, 12);
     printf("12 - Volume do Cilindro\n");
-    gotoXY(5, 22);
+    gotoXY(85, 13);
     printf("14 - Mostrar histórico geral\n");
-    gotoXY(5, 24);
-    printf(" 0 - Sair\n");
-    gotoXY(5, 26);
+    gotoXY(70, 24);
+    printf(VERMELHO " 0 - Sair\n" RESET);
+    gotoXY(65, 26);
     printf(VERDE "Escolha uma opção:\n" RESET);
 }
 
@@ -289,7 +289,7 @@ void Soma()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(60, i + 1);
-        printf("%s", sum_image[i]);
+        printf(AZUL "%s" RESET, sum_image[i]);
     }
 
     int quantidade = 0;
@@ -359,7 +359,7 @@ void Soma()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("A soma é: %.2f\n", *soma);
+    printf(VERDE "A soma é: %.2f" RESET, *soma);
 
     snprintf(temporary, sizeof(temporary), "%.2f", *soma);
 
@@ -378,6 +378,7 @@ void Soma()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_soma.txt");
     }
 
@@ -401,7 +402,7 @@ void Subtracao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(40, i + 1);
-        printf("%s", subtraction_image[i]);
+        printf(AZUL "%s" RESET, subtraction_image[i]);
     }
 
     int quantidade = 0;
@@ -448,7 +449,7 @@ void Subtracao()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("A subtração é: %.2f\n", subtracao);
+    printf(VERDE "A subtração é: %.2f" RESET, subtracao);
 
     snprintf(temporary, sizeof(temporary), "%.2f", subtracao);
 
@@ -467,6 +468,7 @@ void Subtracao()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_subtracao.txt");
     }
 }
@@ -488,7 +490,7 @@ void Multiplicacao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(35, i + 1);
-        printf("%s", multiplication_image[i]);
+        printf(AZUL "%s" RESET, multiplication_image[i]);
     }
 
     int quantidade = 0;
@@ -532,7 +534,7 @@ void Multiplicacao()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("A multiplicação é: %.2f\n", multiplicacao);
+    printf(VERDE "A multiplicação é: %.2f" RESET, multiplicacao);
 
     snprintf(temporary, sizeof(temporary), "%.2f", multiplicacao);
 
@@ -551,6 +553,7 @@ void Multiplicacao()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_multiplicacao.txt");
     }
 }
@@ -572,7 +575,7 @@ void Divisao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(50, i + 1);
-        printf("%s", division_image[i]);
+        printf(AZUL "%s" RESET, division_image[i]);
     }
 
     int quantidade = 0;
@@ -621,7 +624,7 @@ void Divisao()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("A divisão é: %.2f\n", divisao);
+    printf(VERDE "A divisão é: %.2f\n" RESET, divisao);
 
     snprintf(temporary, sizeof(temporary), "%.2f", divisao);
 
@@ -640,6 +643,7 @@ void Divisao()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_divisao.txt");
     }
 }
@@ -661,7 +665,7 @@ void Exponenciacao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(30, i + 1);
-        printf("%s", exponentiation_image[i]);
+        printf(AZUL "%s" RESET, exponentiation_image[i]);
     }
 
     int expoente;
@@ -696,7 +700,7 @@ void Exponenciacao()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("O resultado é: %.2f", resultado);
+    printf(VERDE "O resultado é: %.2f" RESET, resultado);
 
     snprintf(temporary, sizeof(temporary), "%.2f", resultado);
 
@@ -715,6 +719,7 @@ void Exponenciacao()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_exponenciacao.txt");
     }
 }
@@ -736,7 +741,7 @@ void Radiciacao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(30, i + 1);
-        printf("%s", square_root_image[i]);
+        printf(AZUL "%s" RESET, square_root_image[i]);
     }
 
     float radicando;
@@ -759,7 +764,7 @@ void Radiciacao()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("O resultado é: %.2f", resultado);
+    printf(VERDE "O resultado é: %.2f" RESET, resultado);
 
     snprintf(temporary, sizeof(temporary), "%.2f", resultado);
 
@@ -778,6 +783,7 @@ void Radiciacao()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_radiciacao.txt");
     }
 }
@@ -850,7 +856,7 @@ void SequenciaFibonacci()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(45, i + 1);
-        printf("%s", fibonacci_image[i]);
+        printf(AZUL "%s" RESET, fibonacci_image[i]);
     }
 
     int quantidade;
@@ -917,6 +923,7 @@ void SequenciaFibonacci()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_fibonacci.txt");
     }
 
@@ -940,7 +947,7 @@ void AreaCirculo()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(25, i + 1);
-        printf("%s", area_circulo_image[i]);
+        printf(AZUL "%s" RESET, area_circulo_image[i]);
     }
 
     float raio, area_circulo;
@@ -955,7 +962,7 @@ void AreaCirculo()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("O resultado é: %.2f", area_circulo);
+    printf(VERDE "O resultado é: %.2f" RESET, area_circulo);
 
     char calculo_str[1024] = "Raio: ";
     char *igualdade_str = " = ";
@@ -981,6 +988,7 @@ void AreaCirculo()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_area_do_circulo.txt");
     }
 }
@@ -1002,7 +1010,7 @@ void AreaRetangulo()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(10, i + 1);
-        printf("%s", area_retangulo_image[i]);
+        printf(AZUL "%s" RESET, area_retangulo_image[i]);
     }
 
     float base, altura, area_retangulo;
@@ -1023,7 +1031,7 @@ void AreaRetangulo()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
-    printf("O resultado é: %.2f", area_retangulo);
+    printf(VERDE "O resultado é: %.2f" RESET, area_retangulo);
 
     char calculo_str[1024] = "";
     char *multiplicador = " * ";
@@ -1055,7 +1063,92 @@ void AreaRetangulo()
     char choose = getch();
     if (choose == '2')
     {
+        clear_choose_option();
         show_history("../History/historico_area_do_retangulo.txt");
+    }
+}
+
+void VolumeCubo()
+{
+    CLS;
+
+    print_molduras();
+
+    char *volume_cubo_image[6] = {
+        "██╗   ██╗ ██████╗ ██╗     ██╗   ██╗███╗   ███╗███████╗    ██████╗  ██████╗      ██████╗██╗   ██╗██████╗  ██████╗ ",
+        "██║   ██║██╔═══██╗██║     ██║   ██║████╗ ████║██╔════╝    ██╔══██╗██╔═══██╗    ██╔════╝██║   ██║██╔══██╗██╔═══██╗",
+        "██║   ██║██║   ██║██║     ██║   ██║██╔████╔██║█████╗      ██║  ██║██║   ██║    ██║     ██║   ██║██████╔╝██║   ██║",
+        "╚██╗ ██╔╝██║   ██║██║     ██║   ██║██║╚██╔╝██║██╔══╝      ██║  ██║██║   ██║    ██║     ██║   ██║██╔══██╗██║   ██║",
+        " ╚████╔╝ ╚██████╔╝███████╗╚██████╔╝██║ ╚═╝ ██║███████╗    ██████╔╝╚██████╔╝    ╚██████╗╚██████╔╝██████╔╝╚██████╔╝",
+        "  ╚═══╝   ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝    ╚═════╝  ╚═════╝      ╚═════╝ ╚═════╝ ╚═════╝  ╚═════╝ "};
+
+    for (int i = 0; i < 6; i++)
+    {
+        gotoXY(25, i + 1);
+        printf(AZUL "%s" RESET, volume_cubo_image[i]);
+    }
+
+    float altura, largura, comprimento, volume_cubo;
+
+    int text_line = 8;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
+    printf("Informe a altura: ");
+    scanf("%f", &altura);
+    text_line++;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
+    printf("Informe a largura: ");
+    scanf("%f", &largura);
+    text_line++;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
+    printf("Informe o comprimento: ");
+    scanf("%f", &comprimento);
+    text_line++;
+
+    volume_cubo = altura * largura * comprimento;
+
+    gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
+    printf(VERDE "O resultado é: %.2f" RESET, volume_cubo);
+
+    char calculo_str[1024] = "";
+    char *multiplicador = " * ";
+    char *igualdade = " = ";
+    char temporary[50];
+
+    snprintf(temporary, sizeof(temporary), "%.2f", altura);
+    strcat(calculo_str, temporary);
+
+    strcat(calculo_str, multiplicador);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", largura);
+    strcat(calculo_str, temporary);
+
+    strcat(calculo_str, multiplicador);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", comprimento);
+    strcat(calculo_str, temporary);
+
+    strcat(calculo_str, igualdade);
+
+    snprintf(temporary, sizeof(temporary), "%.2f", volume_cubo);
+    strcat(calculo_str, temporary);
+
+    char geral_text[512] = "Área do Retângulo: ";
+
+    strcat(geral_text, calculo_str);
+
+    write_history("../History/historico_volume_cubo.txt", calculo_str);
+    write_history("../History/historico_geral.txt", geral_text);
+
+    history_choose();
+
+    char choose = getch();
+    if (choose == '2')
+    {
+        clear_choose_option();
+        show_history("../History/historico_volume_cubo.txt");
     }
 }
 
@@ -1064,7 +1157,7 @@ void AreaRetangulo()
 void choose_option()
 {
     int operacao;
-    gotoXY(5, 27);
+    gotoXY(85, 26);
     scanf("%d", &operacao);
     switch (operacao)
     {
@@ -1101,7 +1194,9 @@ void choose_option()
     case 10:
         AreaRetangulo();
         break;
-
+    case 11:
+        VolumeCubo();
+        break;
     case 14:
         CLS;
         show_history("../History/historico_geral.txt");
