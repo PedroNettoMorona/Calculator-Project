@@ -18,6 +18,7 @@
 #define VERDE "\x1b[32m"
 #define AMARELOFORTE "\x1b[33m"
 #define AZUL "\x1b[34m"
+#define AZUL_ESCURO "\x1b[38;5;17m"
 #define MAGENTA "\x1b[35m"
 #define CIANO "\x1b[36m"
 #define BRANCO "\x1b[37m"
@@ -67,9 +68,10 @@ void verify_archive_open(FILE *archive)
     }
 }
 
-void Moldura(char *sEsquerdoM, char *sDireitoM, char *iEsquerdoM, char *iDireitoM, char *horizontalM, char *verticalM, int lInicialM, int lFinalM, int cInicialM, int cFinalM)
+void Moldura(char *cor, char *sEsquerdoM, char *sDireitoM, char *iEsquerdoM, char *iDireitoM, char *horizontalM, char *verticalM, int lInicialM, int lFinalM, int cInicialM, int cFinalM)
 {
     int c, l;
+    printf("%s", cor);
     for (l = lInicialM; l <= lFinalM; l++)
         for (c = cInicialM; c <= cFinalM; c++)
         {
@@ -87,15 +89,16 @@ void Moldura(char *sEsquerdoM, char *sDireitoM, char *iEsquerdoM, char *iDireito
             else if (c == cInicialM || c == cFinalM)
                 printf("%s", verticalM);
         }
+    printf(RESET);
 }
 
 void print_molduras()
 {
-    Moldura("\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
+    Moldura(AZUL_ESCURO, "\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
 
-    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 1, ColunaInicial + 1, ColunaFinal - 88);
+    Moldura(AZUL_ESCURO, "\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 1, ColunaInicial + 1, ColunaFinal - 88);
 
-    Moldura("\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 7, ColunaInicial + 68, ColunaFinal - 1);
+    Moldura(AZUL_ESCURO, "\u250C", "\u2510", "\u2514", "\u2518", "\u2500", "\u2502", LinhaInicial + 7, LinhaFinal - 7, ColunaInicial + 68, ColunaFinal - 1);
 }
 
 void write_history(char *address, char *text)
@@ -130,6 +133,7 @@ void show_history(char *address)
         counter++;
     }
 
+    gotoXY(70, LinhaFinal - 1);
     getch();
 
     fclose(archive);
@@ -141,7 +145,7 @@ void menucalculadora()
 {
     CLS;
 
-    Moldura("\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
+    Moldura(AZUL_ESCURO, "\u2554", "\u2557", "\u255A", "\u255D", "\u2550", "\u2551", LinhaInicial, LinhaFinal, ColunaInicial, ColunaFinal);
 
     char *calculator_image[6] = {
         " ██████╗ █████╗ ██╗      ██████╗██╗   ██╗██╗      █████╗ ████████╗ ██████╗ ██████╗ ",
@@ -154,7 +158,7 @@ void menucalculadora()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(35, i + 1);
-        printf(AZUL "%s" RESET, calculator_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, calculator_image[i]);
     }
 
     gotoXY(35, 10);
@@ -289,7 +293,7 @@ void Soma()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(60, i + 1);
-        printf(AZUL "%s" RESET, sum_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, sum_image[i]);
     }
 
     int quantidade = 0;
@@ -402,7 +406,7 @@ void Subtracao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(40, i + 1);
-        printf(AZUL "%s" RESET, subtraction_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, subtraction_image[i]);
     }
 
     int quantidade = 0;
@@ -490,7 +494,7 @@ void Multiplicacao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(35, i + 1);
-        printf(AZUL "%s" RESET, multiplication_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, multiplication_image[i]);
     }
 
     int quantidade = 0;
@@ -575,7 +579,7 @@ void Divisao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(50, i + 1);
-        printf(AZUL "%s" RESET, division_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, division_image[i]);
     }
 
     int quantidade = 0;
@@ -665,7 +669,7 @@ void Exponenciacao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(30, i + 1);
-        printf(AZUL "%s" RESET, exponentiation_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, exponentiation_image[i]);
     }
 
     int expoente;
@@ -741,7 +745,7 @@ void Radiciacao()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(30, i + 1);
-        printf(AZUL "%s" RESET, square_root_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, square_root_image[i]);
     }
 
     float radicando;
@@ -856,7 +860,7 @@ void SequenciaFibonacci()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(45, i + 1);
-        printf(AZUL "%s" RESET, fibonacci_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, fibonacci_image[i]);
     }
 
     int quantidade;
@@ -908,7 +912,9 @@ void SequenciaFibonacci()
 
     text_line++;
     gotoXY(ColunaInicial + 2, LinhaInicial + text_line);
+    printf(VERDE);
     exibirSequenciaFibonacci(primeiro);
+    printf(RESET);
 
     char geral_text[512] = "Fibonacci: ";
     char *text = stringSequenciaFibonacci(primeiro);
@@ -947,7 +953,7 @@ void AreaCirculo()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(25, i + 1);
-        printf(AZUL "%s" RESET, area_circulo_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, area_circulo_image[i]);
     }
 
     float raio, area_circulo;
@@ -1010,7 +1016,7 @@ void AreaRetangulo()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(10, i + 1);
-        printf(AZUL "%s" RESET, area_retangulo_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, area_retangulo_image[i]);
     }
 
     float base, altura, area_retangulo;
@@ -1085,7 +1091,7 @@ void VolumeCubo()
     for (int i = 0; i < 6; i++)
     {
         gotoXY(25, i + 1);
-        printf(AZUL "%s" RESET, volume_cubo_image[i]);
+        printf(AZUL_ESCURO "%s" RESET, volume_cubo_image[i]);
     }
 
     float altura, largura, comprimento, volume_cubo;

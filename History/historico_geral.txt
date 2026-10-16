@@ -48,3 +48,8 @@ Radiciação: sqrt(64.00) = 8.00
 Área do Círculo: Raio: 10.00 = 314.15
 Fibonacci: 1 1 2 3 5 
 Divisão: 20.00 / 2.00 = 10.00
+Soma: 5.00 + 8.00 = 13.00
+Fibonacci: 1 1 2 3 5 8 13 21 
+Fibonacci: 1 1 2 3 5 8 13 21 34 55 89 144 
+Multiplicação: 10.00 * 5.00 * 7.00 = 350.00
+Radiciação: sqrt(56.00) = 7.48
