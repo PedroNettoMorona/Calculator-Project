@@ -53,3 +53,5 @@ Fibonacci: 1 1 2 3 5 8 13 21
 Fibonacci: 1 1 2 3 5 8 13 21 34 55 89 144 
 Multiplicação: 10.00 * 5.00 * 7.00 = 350.00
 Radiciação: sqrt(56.00) = 7.48
+Exponenciação: 2.00 ^ 4 = 16.00
+Exponenciação: 5.00 ^ 3 = 125.00

@@ -652,6 +652,14 @@ void Divisao()
     }
 }
 
+float calculo_expoente(float base, int expoente)
+{
+    if (expoente == 0)
+        return 1;
+    
+    return base * calculo_expoente(base, expoente-1);
+}
+
 void Exponenciacao()
 {
     CLS;
@@ -692,11 +700,7 @@ void Exponenciacao()
     printf("Informe o expoente: ");
     scanf("%d", &expoente);
 
-    resultado = base;
-    for (int i = 1; i < expoente; i++)
-    {
-        resultado = resultado * base;
-    }
+    resultado = calculo_expoente(base, expoente);
 
     snprintf(temporary, sizeof(temporary), "%.2f ^ %d", base, expoente);
 
